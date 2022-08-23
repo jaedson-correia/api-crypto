@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -52,11 +53,15 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof ModelNotFoundException) {
-
             return response()->json([
                 'message' => 'Record not found',
             ], 404);
+        }
 
+        if ($e instanceof ThrottleRequestsException) {
+            return response()->json([
+                'message' => 'Too many requests. Try again in a minute'
+            ], 429);
         }
     }
 }

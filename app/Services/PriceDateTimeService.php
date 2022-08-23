@@ -33,7 +33,8 @@ class PriceDateTimeService
                         ->where('crypto_id', $this->cryptoId)
                         ->where('created_at', '<', $this->dateTime)
                         ->orderBy('id', 'desc')
-                        ->get(['price', 'created_at']);
+                        ->get(['price', 'created_at'])
+                        ->first();
         }
 
         return $price;

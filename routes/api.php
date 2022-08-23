@@ -30,7 +30,7 @@ Route::get('/teste', function() {
 
 Route::controller(CryptoController::class)->group(function() {
     Route::get('/update-prices', 'updatePrices')->middleware(DevTesting::class);
-    Route::get('/coin/{id}/last-price', 'lastPrice')->middleware('throttle:20,1');
-    Route::get('/coin/{id}/price-by-datetime', 'pricesByDatetime')->middleware('throttle:20,1');
-    Route::get('/coin/list', 'coinList')->middleware('throttle:20,1');
+    Route::get('/coin/{id}/last-price', 'lastPrice');
+    Route::get('/coin/{id}/price-by-datetime', 'pricesByDatetime');
+    Route::get('/coin/list', 'coinList');
 });

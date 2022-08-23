@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Jobs\CoinGeckoJob;
 use App\Models\Crypto;
 use App\Services\PriceDateTimeService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CryptoController extends Controller
@@ -17,7 +16,7 @@ class CryptoController extends Controller
      */
     public function lastPrice($id)
     {
-        $priceDateTimeService = new PriceDateTimeService(Carbon::now(), $id);
+        $priceDateTimeService = new PriceDateTimeService(now(), $id);
 
         return response()->json([
             'coin' => $priceDateTimeService->getCoin(),
