@@ -21,15 +21,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/teste', function() {
-    $client = new Client();
-    $request = new Request('GET', 'https://api.coingecko.com/api/v3/coins/bitcoin');
-    $res = $client->sendAsync($request)->wait();
-    return json_decode($res->getBody());
-});
-
 Route::controller(CryptoController::class)->group(function() {
-    Route::get('/update-prices', 'updatePrices')->middleware(DevTesting::class);
+    Route::get('/update-prices', 'updatePrices')->middleware(DevTesting::class); // Route for test
     Route::get('/coin/{id}/last-price', 'lastPrice');
     Route::get('/coin/{id}/price-by-datetime', 'pricesByDatetime');
     Route::get('/coin/list', 'coinList');

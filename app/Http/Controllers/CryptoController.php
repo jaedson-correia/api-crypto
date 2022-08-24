@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPrice;
 use App\Jobs\CoinGeckoJob;
 use App\Models\Crypto;
 use App\Services\PriceDateTimeService;
@@ -11,8 +12,9 @@ use Illuminate\Http\Request;
 class CryptoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Return coin last price.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function lastPrice($id)
@@ -26,15 +28,15 @@ class CryptoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return coin price by datetime.
      *
      * @param  int  $id
-     * @param datetime $date
+     * @param request $request
      * @return \Illuminate\Http\Response
      */
     public function pricesByDatetime(Request $request, $id)
     {
-        $date = $request->dateTime ? Carbon::parse($request->dateTime) : now();
+        $date = Carbon::parse($request->dateTime);
         $priceDateTimeService = new PriceDateTimeService($date, $id);
 
         return response()->json([
@@ -48,6 +50,11 @@ class CryptoController extends Controller
         CoinGeckoJob::dispatch();
     }
 
+    /**
+     * Return coin price by datetime.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function coinList()
     {
         $coins = Crypto::all(['id', 'name']);

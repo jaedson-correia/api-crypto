@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\NewPrice;
 use App\Models\Crypto;
 use App\Models\CryptoPrice;
 use GuzzleHttp\Client;
@@ -51,5 +52,6 @@ class CoinGeckoJob implements ShouldQueue
         }
 
         CryptoPrice::insert($coinsInsert);
+        event(new NewPrice());
     }
 }

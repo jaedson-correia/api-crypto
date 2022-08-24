@@ -18,7 +18,7 @@ class PriceDateTimeService
     {
         $coin = Crypto::findOrFail($this->cryptoId);
 
-        return $coin->only('name', 'image', 'symbol'); // return only necessary column to front end
+        return $coin->only('name', 'image', 'symbol'); // return only visual column to front end
     }
 
     public function getPrice()
