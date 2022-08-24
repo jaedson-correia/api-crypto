@@ -18,9 +18,7 @@ class DevTesting
     public function handle(Request $request, Closure $next)
     {
         if (!App::environment('local')) {
-            return response()->json([
-                'message' => 'Action forbidden',
-            ], 403);
+            abort(403, 'Action forbidden');
         }
         return $next($request);
     }

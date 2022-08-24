@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -62,6 +63,12 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'message' => 'Too many requests. Try again in a minute'
             ], 429);
+        }
+
+        if($e instanceof HttpException && $e->getStatusCode() == 403){
+            return response()->json([
+                'message' =>$e->getMessage()
+            ], 403);
         }
     }
 }

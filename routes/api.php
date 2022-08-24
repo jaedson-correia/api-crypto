@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\CryptoController;
 use App\Http\Middleware\DevTesting;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
