@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\CoinGeckoJob;
 use App\Models\Crypto;
 use App\Services\PriceDateTimeService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CryptoController extends Controller
@@ -33,7 +34,8 @@ class CryptoController extends Controller
      */
     public function pricesByDatetime(Request $request, $id)
     {
-        $priceDateTimeService = new PriceDateTimeService($request->dateTime, 3);
+        $date = $request->dateTime ? Carbon::parse($request->dateTime) : now();
+        $priceDateTimeService = new PriceDateTimeService($date, $id);
 
         return response()->json([
             'coin' => $priceDateTimeService->getCoin(),

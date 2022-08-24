@@ -17,11 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
-            CoinGeckoJob::dispatch();
-            sleep(30);
-            CoinGeckoJob::dispatch();
-        })->everyMinute();
+        $schedule->job(new CoinGeckoJob)->everyMinute();
     }
 
     /**

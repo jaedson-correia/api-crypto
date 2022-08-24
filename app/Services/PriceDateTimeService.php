@@ -23,17 +23,21 @@ class PriceDateTimeService
 
     public function getPrice()
     {
-        $price = CryptoPrice::where('crypto_id', $this->cryptoId)
+        $price = CryptoPrice::select('price', 'created_at')
+                            ->selectRaw('TO_CHAR(created_at, \'YYYY/MM/DD HH24:MI:SS\') as price_date')
+                            ->where('crypto_id', $this->cryptoId)
                             ->where('created_at', $this->dateTime)
-                            ->get(['price', 'created_at'])
+                            ->get()
                             ->first();
 
         if ($price === null) { // if there is no price at datetime, get the last price before that datetime
             $price = CryptoPrice::limit(1)
+                        ->select('price', 'created_at')
+                        ->selectRaw('TO_CHAR(created_at, \'YYYY/MM/DD HH24:MI:SS\') as price_date')
                         ->where('crypto_id', $this->cryptoId)
                         ->where('created_at', '<', $this->dateTime)
                         ->orderBy('id', 'desc')
-                        ->get(['price', 'created_at'])
+                        ->get()
                         ->first();
         }
 
