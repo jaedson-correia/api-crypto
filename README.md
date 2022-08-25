@@ -11,7 +11,7 @@ Url: https://api-cryptoj.herokuapp.com/api
 
 ### /coin/{id}/price-by-datetime?dateTime={dateTime}
 :arrow_left:{id} = coin id (you can get it with the above route
-:arrow_left:{dateTime} = date time
+:arrow_left:{dateTime} = date time (yyyy-mm-ddThh:ii)
 
 :arrow_right:Return coin info(name,image,symbol) and the last price and price date time
 
