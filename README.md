@@ -24,6 +24,7 @@ And to update the prices constantly, I've made a job, that is called in a larave
 Requirements:
 - Git
 - Composer
+- PHP
 - PostgreSQL
 - Pusher account
 
